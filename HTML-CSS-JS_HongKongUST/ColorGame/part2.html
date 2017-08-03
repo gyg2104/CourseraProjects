@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<title>Color Guessing Game</title>
+		<style>
+		</style>
+
+		<script>
+			var color = ["blue", "cyan", "gold", "gray", "green", 
+			"magenta", "orange", "red", "white"];
+			var guess;
+			var target;
+			var count;
+
+			function do_game(){
+				var rand_n = Math.floor(Math.random() * color.length);
+				target = color[rand_n];
+				//apparently should be an alert in pt1
+				console.log("Computer chose " + target);
+				var target_found = false;
+				count = 0;
+				while(!target_found){
+					guess = prompt("I am thinking of one of these colors: \n" +
+						color.join(", ") +"\nWhat color am I thinking of?");
+					count++;
+
+					target_found = check_guess();
+
+
+				}
+
+
+			}
+
+			function check_guess(){
+				if(!(color.indexOf(guess) > -1)){
+					//guess isn't in color array
+					alert("I don't recognize that color!");
+					return false;
+				}
+				else if(guess > target){
+					//alphabetically higher than target
+					alert("Sorry, incorrect! Your input is alphabetically higher than mine! Guess again.");
+					return false;
+				}
+				else if(guess < target){
+					//alphabetically lower than target
+					alert("Sorry, incorrect! Your input is alphabetically lower than mine! Guess again.");
+					return false;
+				}
+				else{
+					//correct
+					myBody=document.getElementsByTagName("body")[0];
+					myBody.style.background=target;
+					var mess = "You are right! You took " + count + " guesses! The background color will change.";
+					setTimeout(function() {
+						alert(mess);
+					},10)
+					return true;
+
+				}
+			}
+
+		</script>
+
+	</head>
+
+
+	<body onload="do_game()">
+		
+
+	</body>
+
+</html>
